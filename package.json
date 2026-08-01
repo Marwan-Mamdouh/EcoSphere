@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "debug": "NODE_OPTIONS='--inspect' next dev",
-    "seed": "npx tsx --env-file=.env scripts/seed.ts"
+    "seed": "npx tsx --env-file=.env scripts/seed.ts",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1101.0",
