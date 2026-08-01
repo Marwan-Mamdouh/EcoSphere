@@ -133,12 +133,20 @@ export default function ImageUpload({
         }`}
       >
         {previewUrl ? (
-          <Image src={previewUrl} alt="Profile" fill className="object-cover" />
+          <Image 
+            src={previewUrl}
+            alt="Profile" 
+            fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
+            className="object-cover" 
+            loading="eager"
+          />
         ) : session.data?.user?.image ? (
           <Image
             src={session.data?.user?.image || "/default-profile.png"}
             alt="Profile"
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            loading="eager"
             className="object-cover"
           />
         ) : (

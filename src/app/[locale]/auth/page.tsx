@@ -193,7 +193,7 @@ const AuthPage = () => {
           width={250}
           height={250}
           alt="login"
-          className="absolute  top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] "
+          className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-auto h-auto"
         />
       </motion.div>
       <motion.img

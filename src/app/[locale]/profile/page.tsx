@@ -25,7 +25,7 @@ export default function ProfilePage() {
   return (
     status === "authenticated" && (
       <div className="bg-background py-8">
-        <div className="min-h-screen flex justify-center items-center w-full max-w-400 mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen flex justify-center w-full max-w-400 mx-auto px-4 sm:px-6 lg:px-8">
           <div className="w-[80%]">
             {(session?.user.role === "customer" ||
               session?.user.role === "admin") && (
