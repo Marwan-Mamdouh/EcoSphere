@@ -4,11 +4,12 @@ import type { NextConfig } from "next";
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
+  reactCompiler: true,
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "ecosphere-iti-bucket.s3.eu-north-1.amazonaws.com",
+        hostname: "marwan-eco-sphere.s3.us-east-1.amazonaws.com",
         port: "",
         pathname: "/**",
       },
