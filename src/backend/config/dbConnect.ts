@@ -57,7 +57,8 @@ export const connectDB = async (): Promise<Mongoose> => {
 		console.log("[MongoDB] Creating new database connection...");
 
 		cache.promise = mongoose
-			.connect(MONGODB_URI, {
+      .connect(MONGODB_URI, {
+        dbName: "EcoSphere",
 				bufferCommands: false,
 				maxPoolSize: 10,
 				serverSelectionTimeoutMS: 5000,

@@ -29,7 +29,7 @@ export class UploadRepository {
 		return await UserModel.findByIdAndUpdate(
 			id,
 			{ avatar: { key } },
-			{ new: true }
+			{ returnDocument: "after" }
 		);
 	}
 
@@ -38,7 +38,7 @@ export class UploadRepository {
 		return await RestaurantModel.findByIdAndUpdate(
 			id,
 			{ avatar: { key } },
-			{ new: true }
+			{ returnDocument: "after" }
 		);
 	}
 
@@ -47,7 +47,7 @@ export class UploadRepository {
 		return await UserModel.findByIdAndUpdate(
 			id,
 			{ $unset: { avatar: 1 } },
-			{ new: true }
+			{ returnDocument: "after" }
 		);
 	}
 
@@ -56,7 +56,7 @@ export class UploadRepository {
 		return await RestaurantModel.findByIdAndUpdate(
 			id,
 			{ $unset: { avatar: 1 } },
-			{ new: true }
+			{ returnDocument: "after" }
 		);
 	}
 }

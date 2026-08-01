@@ -157,7 +157,7 @@ class UserRepository implements IUserRepository {
 		const user = await UserModel.findByIdAndUpdate(
 			userId,
 			{ $set: { points: 0 } },
-			{ new: true }
+			{ returnDocument: "after" }
 		)
 			.select("email points")
 			.lean<IUser>()
@@ -205,7 +205,7 @@ class UserRepository implements IUserRepository {
 		let updatedUser = await UserModel.findOneAndUpdate(
 			{ _id: id, favoritesIds: { $ne: item } },
 			{ $addToSet: { favoritesIds: item } },
-			{ new: true, projection: { favoritesIds: 1, _id: 0 } }
+			{ returnDocument: "after", projection: { favoritesIds: 1, _id: 0 } }
 		)
 			.lean<IUser>()
 			.exec();
@@ -218,7 +218,7 @@ class UserRepository implements IUserRepository {
 		updatedUser = await UserModel.findByIdAndUpdate(
 			id,
 			{ $pull: { favoritesIds: item } },
-			{ new: true, projection: { favoritesIds: 1, _id: 0 } }
+			{ returnDocument: "after", projection: { favoritesIds: 1, _id: 0 } }
 		)
 			.lean<IUser>()
 			.exec();
@@ -231,7 +231,7 @@ class UserRepository implements IUserRepository {
 		const updatedUser = await UserModel.findByIdAndUpdate(
 			id,
 			{ $addToSet: { favoritesIds: item } },
-			{ new: true, projection: { favoritesIds: 1, _id: 0 } }
+			{ returnDocument: "after", projection: { favoritesIds: 1, _id: 0 } }
 		)
 			.lean<IUser>()
 			.exec();
@@ -243,7 +243,7 @@ class UserRepository implements IUserRepository {
 		const updatedUser = await UserModel.findByIdAndUpdate(
 			id,
 			{ $pull: { favoritesIds: item } },
-			{ new: true, projection: { favoritesIds: 1, _id: 0 } }
+			{ returnDocument: "after", projection: { favoritesIds: 1, _id: 0 } }
 		)
 			.lean<IUser>()
 			.exec();
@@ -255,7 +255,7 @@ class UserRepository implements IUserRepository {
 		const user = await UserModel.findByIdAndUpdate(
 			userId,
 			{ $set: { favoritesIds: favorites } },
-			{ new: true, projection: { favoritesIds: 1, _id: 0 } }
+			{ returnDocument: "after", projection: { favoritesIds: 1, _id: 0 } }
 		)
 			.lean<IUser>()
 			.exec();
@@ -267,7 +267,7 @@ class UserRepository implements IUserRepository {
 		const user = await UserModel.findByIdAndUpdate(
 			userId,
 			{ $set: { favoritesIds: [] } },
-			{ new: true, projection: { favoritesIds: 1, _id: 0 } }
+			{ returnDocument: "after", projection: { favoritesIds: 1, _id: 0 } }
 		)
 			.lean<IUser>()
 			.exec();
@@ -326,7 +326,7 @@ class UserRepository implements IUserRepository {
 		const user = await UserModel.findByIdAndUpdate(
 			userId,
 			{ cart },
-			{ new: true }
+			{ returnDocument: "after" }
 		)
 			.lean<IUser>()
 			.exec();
@@ -343,7 +343,7 @@ class UserRepository implements IUserRepository {
 		await UserModel.findByIdAndUpdate(
 			userId,
 			{ resetCode: { code, validTo } },
-			{ new: true }
+			{ returnDocument: "after" }
 		);
 	}
 

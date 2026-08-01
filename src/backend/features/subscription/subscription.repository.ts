@@ -40,7 +40,7 @@ export class SubscriptionRepository implements ISubscriptionRepository {
         currentPeriodEnd: data.currentPeriodEnd,
         raw: data.raw as unknown,
       },
-      { upsert: true, new: true },
+      { upsert: true, returnDocument: "after" },
     ).exec();
     return updated;
   }

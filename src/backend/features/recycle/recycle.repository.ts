@@ -39,7 +39,7 @@ export class RecycleRepository implements IRecycleRepository {
   ): Promise<IRecycle> {
     await DBInstance.getConnection();
     const response = await RecycleModel.findByIdAndUpdate(id, data, {
-      new: true,
+      returnDocument: "after",
     })
       .lean<IRecycle>()
       .exec();

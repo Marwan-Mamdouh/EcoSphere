@@ -24,7 +24,7 @@ export class CouponRepository implements ICouponRepository {
 	): Promise<ICoupon> {
 		await DBInstance.getConnection();
 		const result = await CouponModel.findOneAndUpdate({ code }, updateData, {
-			new: true,
+			returnDocument: "after",
 		})
 			.select("code rate validTo")
 			.lean<ICoupon>()

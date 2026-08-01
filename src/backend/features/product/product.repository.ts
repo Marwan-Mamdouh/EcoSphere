@@ -334,7 +334,7 @@ export class ProductRepository implements IProductRepository {
 			{
 				$push: { menus: productData },
 			},
-			{ new: true, runValidators: true }
+			{ returnDocument: 'after', runValidators: true }
 		).exec();
 	}
 
@@ -353,7 +353,7 @@ export class ProductRepository implements IProductRepository {
 		return await RestaurantModel.findOneAndUpdate(
 			{ _id: restaurantId, "menus._id": productId },
 			{ $set: updateQuery },
-			{ new: true }
+			{ returnDocument: 'after', runValidators: true }
 		).exec();
 	}
 
@@ -367,7 +367,7 @@ export class ProductRepository implements IProductRepository {
 			{
 				$pull: { menus: { _id: productId } },
 			},
-			{ new: true }
+			{ returnDocument: 'after' }
 		).exec();
 	}
 
@@ -381,7 +381,7 @@ export class ProductRepository implements IProductRepository {
 			{
 				$push: { "menus.$.itemRating": review },
 			},
-			{ new: true }
+			{ returnDocument: 'after' }
 		).exec();
 	}
 
@@ -587,7 +587,7 @@ export class ProductRepository implements IProductRepository {
       {
         $inc: { "menus.$.quantity": -quantityToDecrease },
       },
-      { new: true },
+      { returnDocument: 'after' },
     ).exec();
   }
 }

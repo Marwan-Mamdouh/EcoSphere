@@ -114,7 +114,7 @@ class EventRepository {
     const event = await EventModel.findOneAndUpdate(
       { _id: data._id, owner: userId },
       { ...data, updatedAt: new Date() },
-      { new: true }
+      { returnDocument: "after" }
     )
       .lean()
       .exec();
@@ -160,7 +160,7 @@ class EventRepository {
     const event = await EventModel.findByIdAndUpdate(
       eventId,
       { isAccepted: true, isEventNew: false },
-      { new: true }
+      { returnDocument: "after" }
     )
       .lean()
       .exec();
@@ -176,7 +176,7 @@ class EventRepository {
     const event = await EventModel.findByIdAndUpdate(
       eventId,
       { isAccepted: false, isEventNew: false },
-      { new: true }
+      { returnDocument: "after" }
     )
       .lean()
       .exec();
@@ -195,7 +195,7 @@ class EventRepository {
         $addToSet: { attenders: new Types.ObjectId(userId) },
         $set: { updatedAt: new Date() },
       },
-      { new: true }
+      { returnDocument: "after" }
     )
       .lean()
       .exec();

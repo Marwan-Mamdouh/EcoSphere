@@ -76,7 +76,7 @@ export class OrderRepository implements IOrderRepository {
     const updatedOrder = await OrderModel.findByIdAndUpdate(
       { _id: orderId },
       { ...orderNewStatus },
-      { new: true }
+      { returnDocument: "after" }
     )
       .lean<IOrder>()
       .exec();
@@ -235,7 +235,7 @@ export class OrderRepository implements IOrderRepository {
         status: newStatus,
         paidAt: newStatus === "paid" ? new Date() : undefined,
       },
-      { new: true }
+      { returnDocument: "after" }
     )
       .lean<IOrder>()
       .exec();
