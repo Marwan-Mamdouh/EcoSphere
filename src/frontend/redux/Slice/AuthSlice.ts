@@ -70,7 +70,7 @@ import { signIn, signOut } from "next-auth/react";
 import { CategoryOptionClient } from "@/types/ShopTypes";
 
 // Real Login Thunk
-export const loginUser = createAsyncThunk(
+const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (credentials: any, { dispatch, rejectWithValue }) => {
     try {
@@ -173,7 +173,7 @@ export const registerUser = createAsyncThunk(
 );
 
 // Logout Thunk
-export const logoutUserThunk = createAsyncThunk(
+const logoutUserThunk = createAsyncThunk(
   "auth/logoutUser",
   async (_, { dispatch, rejectWithValue }) => {
     try {

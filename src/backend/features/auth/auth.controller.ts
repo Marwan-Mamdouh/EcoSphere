@@ -9,7 +9,7 @@ import type {
 import type { IRegistrationStrategy } from "./registration/registration.service";
 import { LoginService } from "./login/users.login.service";
 
-export interface IAuthController {
+interface IAuthController {
   loginWithCredentials(loginDto: LoginRequestDTO): Promise<LoginResponse>;
   LoginWithGoogle(user: OAuthUserDTO, googleId: string): Promise<boolean>;
   register(registerDto: RegisterRequestDTO): Promise<RegisterResponseDTO>;

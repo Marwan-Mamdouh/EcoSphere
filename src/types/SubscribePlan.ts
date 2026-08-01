@@ -8,7 +8,7 @@ export interface ISubscribePlan {
 	icon: string;
 }
 
-export interface ISubscribePlanData {
+interface ISubscribePlanData {
 	title: string;
 	subtitle: string;
 	price: number;

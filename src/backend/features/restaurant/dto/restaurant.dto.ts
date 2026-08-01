@@ -44,7 +44,7 @@ export const mapResponseToIShop = (res: RestaurantResponse): IShop => {
   };
 };
 
-export interface CreateRestaurantDTO {
+interface CreateRestaurantDTO {
   name: string;
   email: string;
   password: string;
@@ -58,7 +58,7 @@ export interface CreateRestaurantDTO {
   };
 }
 
-export interface UpdateRestaurantDTO extends Partial<CreateRestaurantDTO> {
+interface UpdateRestaurantDTO extends Partial<CreateRestaurantDTO> {
   isHidden?: boolean;
   subscribed?: boolean;
   subscriptionPeriod?: Date;

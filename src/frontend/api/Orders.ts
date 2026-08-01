@@ -52,7 +52,7 @@ export const updateOrderStatus = async (orderId: string, status: string) => {
   }
 };
 
-export const getOrderById = async (orderId: string) => {
+const getOrderById = async (orderId: string) => {
   try {
     const response = await fetch(`${API_URL}/${orderId}`);
     if (!response.ok) {

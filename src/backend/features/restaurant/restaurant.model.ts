@@ -19,7 +19,7 @@ export type MenuItemCategory =
   | "Snacks"
   | "Other";
 
-export interface IRating extends Document {
+interface IRating extends Document {
   userId: string;
   rate: number;
   review: string;
@@ -66,7 +66,7 @@ export interface IRestaurant extends Document {
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
-export const ratingSchema = new Schema<IRating>(
+const ratingSchema = new Schema<IRating>(
   {
     userId: { type: String, required: true },
     rate: { type: Number, required: true },
@@ -76,7 +76,7 @@ export const ratingSchema = new Schema<IRating>(
   { timestamps: true },
 );
 
-export const menuItemSchema = new Schema<IMenuItem>({
+const menuItemSchema = new Schema<IMenuItem>({
   title: { type: String, required: true },
   subtitle: { type: String, required: true },
   price: { type: Number, required: true },

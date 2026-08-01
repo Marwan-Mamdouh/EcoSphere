@@ -9,7 +9,7 @@ import { IUser } from "../../user/user.model";
 import { IRestaurant } from "../../restaurant/restaurant.model";
 import { ImageService } from "@/backend/services/image.service";
 
-export interface ILoginService {
+interface ILoginService {
   login(data: LoginRequestDTO): Promise<LoginResponse>;
   findByEmail(email: string, key: string): Promise<boolean>;
 }

@@ -40,7 +40,7 @@ export function getRegistrationSubject(userType: UserType): string {
   }
 }
 
-export function customerWelcomeTemplate(user: BasicUserInfo): string {
+function customerWelcomeTemplate(user: BasicUserInfo): string {
   const name = formatName(user.name);
 
   return `
@@ -68,7 +68,7 @@ export function customerWelcomeTemplate(user: BasicUserInfo): string {
   `;
 }
 
-export function organizerWelcomeTemplate(user: BasicUserInfo): string {
+function organizerWelcomeTemplate(user: BasicUserInfo): string {
   const name = formatName(user.name);
 
   return `
@@ -98,7 +98,7 @@ export function organizerWelcomeTemplate(user: BasicUserInfo): string {
   `;
 }
 
-export function shopWelcomeTemplate(user: BasicUserInfo): string {
+function shopWelcomeTemplate(user: BasicUserInfo): string {
   const name = formatName(user.name);
 
   return `
@@ -146,11 +146,11 @@ export function getRegistrationTemplate(
 }
 
 // Legacy function for backward compatibility
-export const registrationSubject = "Welcome to EcoSphere 🌱";
+// const registrationSubject = "Welcome to EcoSphere 🌱";
 
-export function registrationTemplate(user: BasicUserInfo): string {
-  return customerWelcomeTemplate(user);
-}
+// function registrationTemplate(user: BasicUserInfo): string {
+//   return customerWelcomeTemplate(user);
+// }
 
 export function newEventSubject(event: Partial<EventInfo>): string {
   return `New event: ${event.title} 🌿`;

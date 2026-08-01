@@ -144,5 +144,3 @@ export const Metrics = () => {
     </section>
   );
 };
-
-export default Metrics;

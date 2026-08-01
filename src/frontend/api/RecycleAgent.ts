@@ -106,7 +106,7 @@ export async function updateRecycleAgentStatus(
 /**
  * Delete a recycle agent
  */
-export async function deleteRecycleAgent(id: string): Promise<void> {
+async function deleteRecycleAgent(id: string): Promise<void> {
   try {
     const response = await fetch(`/api/recycle-agents/${id}`, {
       method: "DELETE",

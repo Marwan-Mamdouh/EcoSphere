@@ -20,13 +20,13 @@ import BasicAnimatedWrapper from "@/components/layout/common/BasicAnimatedWrappe
 import { TbCalendarEvent } from "react-icons/tb";
 import EventCardSkeleton from "@/components/layout/common/events/EventCardSkeleton";
 
-export const getEventStartDateTime = (event: any) => {
+const getEventStartDateTime = (event: any) => {
     return new Date(
         `${event.eventDate.split("T")[0]}T${event.startTime ?? "00:00"}`
     );
 };
 
-export const getEventEndDateTime = (event: any) => {
+const getEventEndDateTime = (event: any) => {
     return new Date(
         `${event.eventDate.split("T")[0]}T${event.endTime ?? "23:59"}`
     );

@@ -23,5 +23,5 @@ export const selectCartItemCount = createSelector(
 );
 
 // Get specific item by ID
-export const selectCartItem = (id: string) =>
+const selectCartItem = (id: string) =>
 	createSelector([selectCartItems], (items) => items[id] ?? null);

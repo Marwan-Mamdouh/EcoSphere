@@ -57,31 +57,31 @@ export async function sendWelcomeEmail(
   }
 }
 
-export async function sendNewEventEmail(
-  to: string,
-  userName: string | undefined,
-  event: {
-    title: string;
-    date?: string;
-    location?: string;
-    description?: string;
-  },
-) {
-  if (!ensureSmtpConfigured()) return;
+// async function sendNewEventEmail(
+//   to: string,
+//   userName: string | undefined,
+//   event: {
+//     title: string;
+//     date?: string;
+//     location?: string;
+//     description?: string;
+//   },
+// ) {
+//   if (!ensureSmtpConfigured()) return;
 
-  const mailOptions = {
-    from: `"EcoSphere" <no-reply@ecosphere.com>`,
-    to,
-    subject: newEventSubject({ title: event.title }),
-    html: newEventTemplate({ name: userName }, event),
-  };
+//   const mailOptions = {
+//     from: `"EcoSphere" <no-reply@ecosphere.com>`,
+//     to,
+//     subject: newEventSubject({ title: event.title }),
+//     html: newEventTemplate({ name: userName }, event),
+//   };
 
-  try {
-    await transporter.sendMail(mailOptions);
-  } catch (error) {
-    console.error("Failed to send new event email:", error);
-  }
-}
+//   try {
+//     await transporter.sendMail(mailOptions);
+//   } catch (error) {
+//     console.error("Failed to send new event email:", error);
+//   }
+// }
 
 export const sendRedeemingMail = async (
   email: string,

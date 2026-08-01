@@ -32,7 +32,7 @@ export interface IRecycle extends Document {
   updatedAt?: Date;
 }
 
-export const recycleSchema = new Schema<IRecycle>(
+const recycleSchema = new Schema<IRecycle>(
   {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },

@@ -6,7 +6,7 @@ export interface IReview {
   review: string;
 }
 
-export interface IShopAvatar {
+interface IShopAvatar {
   key: string;
   url?: string;
 }

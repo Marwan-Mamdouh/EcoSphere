@@ -8,14 +8,14 @@ export type EventType =
   | "sustainable_brands_showcase"
   | "other";
 
-export interface ISection extends Document {
+interface ISection extends Document {
   title: string;
   description: string;
   startTime: string;
   endTime: string;
 }
 
-export type IEventPopulated = IEvent & {
+type IEventPopulated = IEvent & {
   user: {
     email: string;
     name?: string;
@@ -48,7 +48,7 @@ export interface IEvent extends Document {
   user?: IUser | IRestaurant;
 }
 
-export const sectionsSchema = new Schema<ISection>(
+const sectionsSchema = new Schema<ISection>(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
@@ -58,7 +58,7 @@ export const sectionsSchema = new Schema<ISection>(
   { _id: false },
 );
 
-export const eventSchema = new Schema<IEvent>(
+const eventSchema = new Schema<IEvent>(
   {
     name: { type: String, required: true },
     locate: { type: String, required: true },

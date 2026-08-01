@@ -74,6 +74,6 @@ const createGuard = (roles: Role[]) => {
 
 export const adminOnly = createGuard(["admin"]);
 export const organizerOnly = createGuard(["organizer", "shop", "restaurant"]);
-export const shopOnly = createGuard(["shop"]);
-export const recycleAgentOnly = createGuard(["recycleAgent"]);
-export const userOnly = createGuard(["customer"]);
+// const shopOnly = createGuard(["shop"]);
+// const recycleAgentOnly = createGuard(["recycleAgent"]);
+// const userOnly = createGuard(["customer"]);

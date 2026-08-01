@@ -59,16 +59,16 @@ export type RegisterRequestDTO = {
   role: UserTypes;
 };
 
-export type RegisterWithCredentialsDTO = RegisterRequestDTO & {
+type RegisterWithCredentialsDTO = RegisterRequestDTO & {
   password: string;
 };
 
-export type RegisterForConsumer = {
+type RegisterForConsumer = {
   firstName: string;
   lastName: string;
 };
 
-export type RegisterWithPhoneNumber = {
+type RegisterWithPhoneNumber = {
   phoneNumber: string;
 };
 

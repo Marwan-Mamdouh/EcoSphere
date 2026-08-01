@@ -1,4 +1,4 @@
-export interface PromptSuggestion {
+interface PromptSuggestion {
   icon: string;
   text: string;
 }

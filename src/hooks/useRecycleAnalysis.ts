@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export interface AnalyzedItem {
+interface AnalyzedItem {
   originalLabel: string;
   type: string;
   count: number;

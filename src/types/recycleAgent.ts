@@ -1,7 +1,7 @@
 import { UserType } from "@/backend/utils/mailTemplates";
 import { IUser } from "@/backend/features/user/user.model";
 
-export type AgentType = "independent" | "organizational";
+type AgentType = "independent" | "organizational";
 
 export interface RecycleAgent {
   id: string;

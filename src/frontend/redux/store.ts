@@ -50,4 +50,4 @@ if (globalThis.window !== undefined && (globalThis as any).__setCartSyncStore) {
 export type RootState = ReturnType<typeof rootReducer> & PersistedState
 export type AppDispatch = typeof store.dispatch;
 
-export const selectIsHydrated = (state: RootState) => state._persist.rehydrated;
+const selectIsHydrated = (state: RootState) => state._persist.rehydrated;

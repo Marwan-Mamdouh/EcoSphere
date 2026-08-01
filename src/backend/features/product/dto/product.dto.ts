@@ -72,117 +72,117 @@ export interface PaginatedProductResponse {
 	};
 }
 
-export function buildProductsPipeline({
-	restaurantId,
-	page = 1,
-	limit = 10,
-	search = "",
-	category = "default",
-	sort = "default",
-}: {
-	restaurantId?: string;
-	page?: number;
-	limit?: number;
-	search?: string;
-	category?: string;
-	sort?: string;
-}): PipelineStage[] {
-	const skip = (page - 1) * limit;
+// function buildProductsPipeline({
+// 	restaurantId,
+// 	page = 1,
+// 	limit = 10,
+// 	search = "",
+// 	category = "default",
+// 	sort = "default",
+// }: {
+// 	restaurantId?: string;
+// 	page?: number;
+// 	limit?: number;
+// 	search?: string;
+// 	category?: string;
+// 	sort?: string;
+// }): PipelineStage[] {
+// 	const skip = (page - 1) * limit;
 
-	const pipeline: PipelineStage[] = [];
+// 	const pipeline: PipelineStage[] = [];
 
-	// 🔹 Base match
-	const baseMatch: any = { isHidden: false };
+// 	// 🔹 Base match
+// 	const baseMatch: any = { isHidden: false };
 
-	if (restaurantId) {
-		baseMatch._id = new Types.ObjectId(restaurantId);
-	}
+// 	if (restaurantId) {
+// 		baseMatch._id = new Types.ObjectId(restaurantId);
+// 	}
 
-	pipeline.push({ $match: baseMatch });
+// 	pipeline.push({ $match: baseMatch });
 
-	// 🔹 Unwind menus
-	pipeline.push({ $unwind: "$menus" });
+// 	// 🔹 Unwind menus
+// 	pipeline.push({ $unwind: "$menus" });
 
-	// 🔹 Project
-	pipeline.push({
-		$project: {
-			_id: "$menus._id",
-			restaurantId: "$_id",
-			restaurantName: "$name",
-			title: "$menus.title",
-			subtitle: "$menus.subtitle",
-			price: "$menus.price",
-			category: "$menus.category",
-			avatar: "$menus.avatar",
-			availableOnline: "$menus.availableOnline",
-			sustainabilityScore: "$menus.sustainabilityScore",
-			sustainabilityReason: "$menus.sustainabilityReason",
-			itemRating: "$menus.itemRating",
-		},
-	});
+// 	// 🔹 Project
+// 	pipeline.push({
+// 		$project: {
+// 			_id: "$menus._id",
+// 			restaurantId: "$_id",
+// 			restaurantName: "$name",
+// 			title: "$menus.title",
+// 			subtitle: "$menus.subtitle",
+// 			price: "$menus.price",
+// 			category: "$menus.category",
+// 			avatar: "$menus.avatar",
+// 			availableOnline: "$menus.availableOnline",
+// 			sustainabilityScore: "$menus.sustainabilityScore",
+// 			sustainabilityReason: "$menus.sustainabilityReason",
+// 			itemRating: "$menus.itemRating",
+// 		},
+// 	});
 
-	pipeline.push({
-		$group: {
-			_id: "$_id", // menu item id
-			restaurantId: { $first: "$restaurantId" },
-			restaurantName: { $first: "$restaurantName" },
-			title: { $first: "$title" },
-			subtitle: { $first: "$subtitle" },
-			price: { $first: "$price" },
-			category: { $first: "$category" },
-			avatar: { $first: "$avatar" },
-			availableOnline: { $first: "$availableOnline" },
-			sustainabilityScore: { $first: "$sustainabilityScore" },
-			sustainabilityReason: { $first: "$sustainabilityReason" },
-			itemRating: { $first: "$itemRating" },
-		},
-	});
+// 	pipeline.push({
+// 		$group: {
+// 			_id: "$_id", // menu item id
+// 			restaurantId: { $first: "$restaurantId" },
+// 			restaurantName: { $first: "$restaurantName" },
+// 			title: { $first: "$title" },
+// 			subtitle: { $first: "$subtitle" },
+// 			price: { $first: "$price" },
+// 			category: { $first: "$category" },
+// 			avatar: { $first: "$avatar" },
+// 			availableOnline: { $first: "$availableOnline" },
+// 			sustainabilityScore: { $first: "$sustainabilityScore" },
+// 			sustainabilityReason: { $first: "$sustainabilityReason" },
+// 			itemRating: { $first: "$itemRating" },
+// 		},
+// 	});
 
-	// 🔹 Search & category filters
-	const filters: any[] = [];
+// 	// 🔹 Search & category filters
+// 	const filters: any[] = [];
 
-	if (search.trim()) {
-		filters.push({
-			$or: [
-				{ title: { $regex: search, $options: "i" } },
-				{ subtitle: { $regex: search, $options: "i" } },
-			],
-		});
-	}
+// 	if (search.trim()) {
+// 		filters.push({
+// 			$or: [
+// 				{ title: { $regex: search, $options: "i" } },
+// 				{ subtitle: { $regex: search, $options: "i" } },
+// 			],
+// 		});
+// 	}
 
-	if (category !== "default") {
-		filters.push({ category });
-	}
+// 	if (category !== "default") {
+// 		filters.push({ category });
+// 	}
 
-	if (filters.length) {
-		pipeline.push({ $match: { $and: filters } });
-	}
+// 	if (filters.length) {
+// 		pipeline.push({ $match: { $and: filters } });
+// 	}
 
-	// 🔹 Sorting
-	switch (sort) {
-		case "priceLow":
-			pipeline.push({ $sort: { price: 1, title: 1 } });
-			break;
-		case "priceHigh":
-			pipeline.push({ $sort: { price: -1, title: 1 } });
-			break;
-		case "sustainabilityLow":
-			pipeline.push({ $sort: { sustainabilityScore: 1, title: 1 } });
-			break;
-		case "sustainabilityHigh":
-			pipeline.push({ $sort: { sustainabilityScore: -1, title: 1 } });
-			break;
-		default:
-			pipeline.push({ $sort: { title: 1 } });
-	}
+// 	// 🔹 Sorting
+// 	switch (sort) {
+// 		case "priceLow":
+// 			pipeline.push({ $sort: { price: 1, title: 1 } });
+// 			break;
+// 		case "priceHigh":
+// 			pipeline.push({ $sort: { price: -1, title: 1 } });
+// 			break;
+// 		case "sustainabilityLow":
+// 			pipeline.push({ $sort: { sustainabilityScore: 1, title: 1 } });
+// 			break;
+// 		case "sustainabilityHigh":
+// 			pipeline.push({ $sort: { sustainabilityScore: -1, title: 1 } });
+// 			break;
+// 		default:
+// 			pipeline.push({ $sort: { title: 1 } });
+// 	}
 
-	// 🔹 Pagination
-	pipeline.push({
-		$facet: {
-			metadata: [{ $count: "total" }],
-			data: [{ $skip: skip }, { $limit: limit }],
-		},
-	});
+// 	// 🔹 Pagination
+// 	pipeline.push({
+// 		$facet: {
+// 			metadata: [{ $count: "total" }],
+// 			data: [{ $skip: skip }, { $limit: limit }],
+// 		},
+// 	});
 
-	return pipeline;
-}
+// 	return pipeline;
+// }

@@ -6,7 +6,7 @@ const createDateTime = (date?: string, time?: string) => {
   return isNaN(d.getTime()) ? null : d;
 };
 
-export const agendaSectionSchema = z.object({
+const agendaSectionSchema = z.object({
   title: z.string().min(1, "Agenda title is required"),
   description: z.string().min(1, "Agenda description is required"),
   startTime: z.string().min(1, "Start time is required"),
@@ -23,9 +23,9 @@ export const eventSchema = z
 
     avatar: z
       .union([
-        z.string().url().optional(), // existing image (edit mode)
+        z.url().optional(), // existing image (edit mode)
         z.object({
-          url: z.string().url(),
+          url: z.url(),
           key: z.string(),
         }),
         z.instanceof(File).optional(), // new upload

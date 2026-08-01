@@ -5,7 +5,7 @@
  *   STRIPE_PRICE_PRO_MONTHLY
  *   STRIPE_PRICE_PRO_YEARLY
  */
-export const SUBSCRIPTION_PRICE_MAP: Record<string, string | undefined> = {
+const SUBSCRIPTION_PRICE_MAP: Record<string, string | undefined> = {
 	starter_monthly: process.env.STRIPE_PRICE_STARTER_MONTHLY,
 	pro_monthly: process.env.STRIPE_PRICE_PRO_MONTHLY,
 	growth_monthly: process.env.STRIPE_PRICE_GROWTH_MONTHLY,

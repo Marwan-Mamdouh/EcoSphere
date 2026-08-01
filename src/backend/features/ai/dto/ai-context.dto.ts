@@ -6,7 +6,7 @@ export interface ProductContextDTO {
   soldBy: string;
 }
 
-export interface MenuItemDTO {
+interface MenuItemDTO {
   title: string;
   price: number;
 }

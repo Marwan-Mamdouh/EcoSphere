@@ -38,7 +38,7 @@ export type CreateOrderDTO = {
   items: OrderRequestItem[];
 };
 
-export type OrderSuccess = {
+type OrderSuccess = {
   orderId: string;
   stripePaymentIntentId: string;
   paidAmount: number;
@@ -51,7 +51,7 @@ export type OrderRequestItem = {
   quantity: number;
 };
 
-export type CreateOrderCommand = {
+type CreateOrderCommand = {
   totalPrice: number;
 } & OrderRequestItem & { price: number };
 

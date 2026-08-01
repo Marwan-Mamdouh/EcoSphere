@@ -36,7 +36,7 @@ export interface RecycleRowData {
   isVerified: boolean;
 }
 
-export const mapToRecycleItems = (
+const mapToRecycleItems = (
   args: { type: string; estimatedWeight: number }[],
 ) =>
   args.map((item) => ({
