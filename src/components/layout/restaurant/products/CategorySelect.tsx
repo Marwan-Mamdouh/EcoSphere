@@ -34,10 +34,16 @@ export default function CategorySelect({
 }: Readonly<CategorySelectProps>) {
   const t = useTranslations("Restaurant.Products.Categories");
 
+  const normalizedValue = value
+    ? CATEGORIES.find(
+        (c) => c.toLowerCase() === String(value).trim().toLowerCase()
+      ) || String(value).trim()
+    : "";
+
   return (
     <div className="space-y-2">
       <Label htmlFor="category">{t("label")}</Label>
-      <Select value={value} onValueChange={onChange}>
+      <Select value={normalizedValue} onValueChange={onChange}>
         <SelectTrigger className={`${error ? "border-red-500" : ""} w-full`}>
           <SelectValue placeholder={t("placeholder")} />
         </SelectTrigger>

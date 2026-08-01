@@ -1,17 +1,15 @@
 "use client";
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { CreateProductDTO } from "@/backend/features/product/dto/product.dto";
-import { MenuItemCategory } from "@/backend/features/restaurant/restaurant.model";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
-
 import { Loader2 } from "lucide-react";
 import ImageUpload from "@/components/layout/common/ImageUpload";
 import CategorySelect from "./CategorySelect";
+import { useTranslations } from "next-intl";
 
 interface ProductPopupProps {
   isOpen: boolean;
@@ -22,8 +20,6 @@ interface ProductPopupProps {
   description?: string;
 }
 
-import { useTranslations } from "next-intl";
-
 export default function ProductPopup({
   isOpen,
   onClose,
@@ -33,10 +29,11 @@ export default function ProductPopup({
   description,
 }: Readonly<ProductPopupProps>) {
   const t = useTranslations("Restaurant.Products");
+  
   const {
     register,
     handleSubmit,
-    reset,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<CreateProductDTO>({
     defaultValues: initialData || {
@@ -44,61 +41,13 @@ export default function ProductPopup({
       subtitle: "",
       price: 0,
       availableOnline: true,
-      quantity: 1, // Added default quantity
+      quantity: 1,
+      category: undefined,
+      avatar: undefined,
     },
   });
 
-  const [imageKey, setImageKey] = React.useState<string | undefined>(
-    initialData?.avatar?.key
-  );
-  const [category, setCategory] = React.useState<MenuItemCategory | undefined>(
-    initialData?.category
-  );
-  const [quantity, setQuantity] = React.useState<number>(
-    initialData?.quantity ?? 1
-  );
-  const [categoryError, setCategoryError] = React.useState<
-    string | undefined
-  >();
-
-  React.useEffect(() => {
-    if (isOpen) {
-      if (initialData) {
-        reset(initialData);
-        setImageKey(initialData.avatar?.key);
-        setCategory(initialData.category);
-        setQuantity(initialData.quantity ?? 1);
-      } else {
-        reset({
-          title: "",
-          subtitle: "",
-          price: 0,
-          availableOnline: true,
-          quantity: 1,
-        });
-        setImageKey(undefined);
-        setCategory(undefined);
-        setQuantity(1);
-      }
-      setCategoryError(undefined);
-    }
-  }, [isOpen, initialData, reset]);
-
   const handleFormSubmit = async (data: CreateProductDTO) => {
-    if (!category) {
-      setCategoryError(t("popup.errors.categoryRequired")); // Changed to setCategoryError
-      toast.error(t("popup.errors.categoryRequired")); // Added toast
-      return;
-    }
-    if (quantity < 0) {
-      toast.error(t("popup.errors.quantityNegative")); // Added toast
-      return;
-    }
-    if (imageKey) {
-      data.avatar = { key: imageKey };
-    }
-    data.category = category;
-    data.quantity = quantity; // Added quantity to data
     await onSubmit(data);
     onClose();
   };
@@ -122,7 +71,7 @@ export default function ProductPopup({
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6 text-primary-foreground  "
+              className="w-6 h-6 text-primary-foreground"
             >
               <path
                 strokeLinecap="round"
@@ -182,13 +131,17 @@ export default function ProductPopup({
             />
           </div>
 
-          <CategorySelect
-            value={category}
-            onChange={(value) => {
-              setCategory(value);
-              setCategoryError(undefined);
-            }}
-            error={categoryError}
+          <Controller
+            control={control}
+            name="category"
+            rules={{ required: t("popup.errors.categoryRequired") }}
+            render={({ field, fieldState }) => (
+              <CategorySelect
+                value={field.value}
+                onChange={field.onChange}
+                error={fieldState.error?.message}
+              />
+            )}
           />
 
           <div className="space-y-2">
@@ -196,24 +149,36 @@ export default function ProductPopup({
             <Input
               id="quantity"
               type="number"
-              value={quantity}
-              onChange={(e) => setQuantity(Number(e.target.value))}
               min={0}
+              {...register("quantity", {
+                min: { value: 0, message: t("popup.errors.quantityNegative") },
+                valueAsNumber: true,
+              })}
             />
+            {errors.quantity && (
+              <span className="text-sm text-red-500">
+                {errors.quantity.message}
+              </span>
+            )}
           </div>
+
           <div className="space-y-2">
             <Label>{t("popup.imageLabel")}</Label>
             <div className="h-40 w-full border rounded-md">
-              <ImageUpload
-                currentImageUrl={initialData?.avatar?.url}
-                variant="square"
-                onImageUpdate={() => {
-                  // We primarily use onUploadComplete for the key
-                }}
-                onUploadComplete={(data) => {
-                  setImageKey(data.key);
-                }}
-                endpoint="/api/upload/image"
+              <Controller
+                control={control}
+                name="avatar"
+                render={({ field }) => (
+                  <ImageUpload
+                    currentImageUrl={field.value?.url || initialData?.avatar?.url}
+                    variant="square"
+                    onImageUpdate={() => {}}
+                    onUploadComplete={(data) => {
+                      field.onChange({ key: data.key, url: data.url });
+                    }}
+                    endpoint="/api/upload/image"
+                  />
+                )}
               />
             </div>
           </div>
