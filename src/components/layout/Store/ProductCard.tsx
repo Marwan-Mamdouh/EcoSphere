@@ -44,6 +44,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     availableOnline = false,
     shopName,
     shopSubtitle,
+    shopAvatar,
     category,
   } = product;
 
@@ -53,6 +54,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const safeSubtitle = productSubtitle || (product as any).subtitle || "";
   const safeImg =
     productImg || (product as any).avatar?.url || "/store img/2.jpg";
+  const safeShopAvatar = shopAvatar || "/shop-img.jpg";
   const safeId = id || (product as any)._id;
 
   const router = useRouter();
@@ -91,6 +93,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           restaurantId: restaurantId || "",
           shopName: "",
           shopSubtitle: "", // Not passed currently
+          shopAvatar: safeShopAvatar,
           productDescription: "",
           quantity: 1,
           maxQuantity: product.quantity || 1,
@@ -122,8 +125,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <Image
             width={100}
             height={100}
-            src={safeImg}
-            alt={`${safeName} avatar`}
+            src={safeShopAvatar}
+            alt={`${shopName || safeName} avatar`}
             className="w-10 h-10 rounded-full shrink-0"
           />
           <div className="min-w-0 flex-1">

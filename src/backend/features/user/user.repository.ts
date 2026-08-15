@@ -299,7 +299,7 @@ class UserRepository implements IUserRepository {
 		const restaurants = await RestaurantModel.find({
 			"menus._id": { $in: objectIds },
 		})
-			.select("_id name menus")
+			.select("_id name avatar menus")
 			.lean()
 			.exec();
 
@@ -313,6 +313,7 @@ class UserRepository implements IUserRepository {
 						...menu,
 						restaurantId: restaurant._id,
 						restaurantName: restaurant.name,
+						restaurantAvatar: restaurant.avatar,
 					} as ProductResponse);
 				}
 			});

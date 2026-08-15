@@ -6,6 +6,10 @@ import { IProduct } from "@/types/ProductType";
 export type ProductResponse = IMenuItem & {
 	restaurantId: Types.ObjectId | string;
 	restaurantName: string;
+	restaurantAvatar?: {
+		key?: string;
+		url?: string;
+	};
 };
 
 export const mapResponseToIProduct = (res: ProductResponse): IProduct => {
@@ -16,6 +20,7 @@ export const mapResponseToIProduct = (res: ProductResponse): IProduct => {
 		restaurantId: `${res.restaurantId}`,
 		shopName: res.restaurantName,
 		shopSubtitle: res.subtitle,
+		shopAvatar: res.restaurantAvatar?.url || "",
 		productImg,
 		productName: res.title,
 		productPrice: res.price,

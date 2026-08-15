@@ -5,6 +5,7 @@ export interface IProduct {
   restaurantId: string;
   shopName: string;
   shopSubtitle: string;
+  shopAvatar?: string;
   productImg: string;
   productName: string;
   productPrice: number;

@@ -24,6 +24,7 @@ export const mapResponseToIShop = (res: RestaurantResponse): IShop => {
           restaurantId: `${res._id}`,
           shopName: res.name,
           shopSubtitle: "", // Not available in menu item
+          shopAvatar: res.avatar?.url || "",
           productImg: menu.avatar?.url || "",
           productName: menu.title,
           productPrice: menu.price,

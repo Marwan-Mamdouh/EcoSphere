@@ -167,7 +167,7 @@ class RestaurantRepository {
     return RestaurantModel.find({
       _id: { $in: validIds },
     })
-      .select("name menus")
+      .select("name avatar menus")
       .lean<IRestaurant[]>()
       .exec();
   }

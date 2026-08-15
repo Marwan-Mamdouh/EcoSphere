@@ -59,6 +59,21 @@ export class ProductService implements IProductService {
         );
       }
     }
+
+    if (product?.restaurantAvatar?.key) {
+      try {
+        const url = await this.imageService.getSignedUrl(
+          product.restaurantAvatar.key
+        );
+        product.restaurantAvatar.url = url;
+      } catch (error) {
+        console.error(
+          `Failed to generate signed URL for restaurant ${product.restaurantId}:`,
+          error
+        );
+      }
+    }
+
     return product;
   }
 

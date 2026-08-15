@@ -263,6 +263,7 @@ class UserService implements IUserService {
 						restaurant: {
 							id: `${restaurant._id}`,
 							name: restaurant.name,
+							avatarKey: restaurant.avatar?.key,
 						},
 					});
 				});
@@ -292,6 +293,19 @@ class UserService implements IUserService {
 					}
 				}
 
+				let shopAvatar = "";
+				const shopAvatarKey = restaurant.avatarKey;
+				if (shopAvatarKey && typeof shopAvatarKey === "string") {
+					try {
+						shopAvatar = await this.populateAvatar(shopAvatarKey);
+					} catch (error) {
+						console.error(
+							"[getCart] Error generating shop avatar URL:",
+							error
+						);
+					}
+				}
+
 				return {
 					// Identifiers
 					id: `${menuItem._id}`,
@@ -299,6 +313,7 @@ class UserService implements IUserService {
 					restaurantId: `${restaurant.id}`,
 					shopName: restaurant.name as string,
 					shopSubtitle: "food shop",
+					shopAvatar,
 					// item data
 					productImg,
 					productName: menuItem.title as string,
@@ -370,6 +385,21 @@ class UserService implements IUserService {
 				);
 			}
 		}
+
+		if (product?.restaurantAvatar?.key) {
+			try {
+				const url = await this.imageService.getSignedUrl(
+					product.restaurantAvatar.key
+				);
+				product.restaurantAvatar.url = url;
+			} catch (error) {
+				console.error(
+					`Failed to generate signed URL for restaurant ${product.restaurantId}:`,
+					error
+				);
+			}
+		}
+
 		return product;
 	}
 
